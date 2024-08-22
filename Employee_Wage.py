@@ -15,6 +15,8 @@ WAGE_PER_HOUR = 20
 FULL_DAY_HOUR = 8
 PART_TIME_DAY_HOUR = 4
 MONTH_DAYS = 20
+MAX_HOURS_PER_MONTH = 100
+
 
 
 def check_attendance():
@@ -77,36 +79,41 @@ def calculate_monthly_wage():
     """
 
         Description:
-            Calculate monthly wages for the employees, wage per hour is 20, haugh day hour is 4 and monthly working days is 20. 
+            Calculate monthly wages for the employees, for maximum hours in month is 100 and maximum day is 20.
 
         Parameter:
             None
 
         Return:
-            Multiplication of total monthly working hours and wage per hour.
+            total_days : Give Total working days in a month.
+            total_hours : Give Total working hours in a month.
 
     """
     
-    total_daily_hrs = []
-    for _ in range(MONTH_DAYS):
+    total_hours = 0
+    total_days = 0
+
+    while total_hours < MAX_HOURS_PER_MONTH and total_days < MONTH_DAYS  :
         attendance = check_attendance()
         if attendance == 1:
-            total_daily_hrs.append(calculate_daily_wage())
+            total_days +=1
+            total_hours += 8
         elif attendance == 2:
-            total_daily_hrs.append(part_time_employee_daily_wage())
+            total_days +=1
+            total_hours += 4
         else :
-            total_daily_hrs.append(0)
+            total_days +=1
+            total_hours += 0
 
-    total_hours =0
-    for ele in range(0, len(total_daily_hrs)):
-        total_hours = total_hours + total_daily_hrs[ele]
-
-    return total_hours * WAGE_PER_HOUR
+    return total_days, total_hours
 
 
 def main():
     print("***Welcome to Employee Wage Computation Program***")
-    print(f"Given Employee monthly wages is : {calculate_monthly_wage()}")
+    total_days, total_hours = calculate_monthly_wage()
+    print(f"Given Employee Total Present Days in Month : {total_days} ")
+    print(f"Given Employee Total Working Hours in Month : {total_hours} ")
+    print(f"Given Employee Total Wages for one Month  : {total_hours * MONTH_DAYS} ")
 
 
 if __name__ == "__main__":
