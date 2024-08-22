@@ -87,26 +87,27 @@ def calculate_monthly_wage():
 
     """
     
-    total_daily_hrs = []
+    total_daily_wage = []
     for _ in range(MONTH_DAYS):
         attendance = check_attendance()
         if attendance == 1:
-            total_daily_hrs.append(calculate_daily_wage())
+            total_daily_wage.append(calculate_daily_wage())
+            
         elif attendance == 2:
-            total_daily_hrs.append(part_time_employee_daily_wage())
+            total_daily_wage.append(part_time_employee_daily_wage())
         else :
-            total_daily_hrs.append(0)
+            total_daily_wage.append(0)
 
-    total_hours =0
-    for ele in range(0, len(total_daily_hrs)):
-        total_hours = total_hours + total_daily_hrs[ele]
-
-    return total_hours * WAGE_PER_HOUR
+    return sum(total_daily_wage), total_daily_wage
 
 
 def main():
     print("***Welcome to Employee Wage Computation Program***")
-    print(f"Given Employee monthly wages is : {calculate_monthly_wage()}")
+    monthly_wage, day_wise_wage = calculate_monthly_wage()
+    print(f"Given Employee monthly wages is : {monthly_wage}")
+    print(f"Given Employee day wise monthly wages  : {day_wise_wage}")
+
+
 
 
 if __name__ == "__main__":
