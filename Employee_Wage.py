@@ -21,13 +21,13 @@ def check_attendance():
     """
 
         Description:
-            Using randome to check employee is present or not. If 0 then employee is absent, 1 for present. 
+            Using random to check employee is present or not. If 0 then employee is absent, 1 for present and 2 for part time. 
 
         Parameter:
             None
 
         Return:
-            Give choice 0 or 1.
+            Give choice 0, 1 or 2.
 
     """
 
@@ -72,12 +72,14 @@ def part_time_employee_daily_wage():
 def main():
     print("***Welcome to Employee Wage Computation Program***")
     attendance = check_attendance()
-    if attendance == 1:
-        print(f"Your daily wages is {calculate_daily_wage()}.")
-    elif attendance == 2:
-        print(f"Employee is Part time and there daily wage is {part_time_employee_daily_wage()}")
-    else:
-        print(F"Employee is Absent and there daily wage is {0}.")
+
+    match (attendance):
+        case 1:
+            print(f"Given Employee is Full time Employee.... \nThere daily wage : {calculate_daily_wage()}")
+        case 2:
+            print(f"Given Employee is Part time Employee.... \nThere daily wage : {part_time_employee_daily_wage()}")
+        case _ :
+            print(f"Given Employee is Absent.... \nThere daily wage : {0}")
 
 
 if __name__ == "__main__":
