@@ -14,6 +14,7 @@ import random
 WAGE_PER_HOUR = 20
 FULL_DAY_HOUR = 8
 PART_TIME_DAY_HOUR = 4
+MONTH_DAYS = 20
 
 
 def check_attendance():
@@ -52,6 +53,7 @@ def calculate_daily_wage():
     return WAGE_PER_HOUR * FULL_DAY_HOUR
 
 
+
 def part_time_employee_daily_wage():
 
     """
@@ -66,20 +68,45 @@ def part_time_employee_daily_wage():
             Multiplication of part time day hours and wage per hour.
 
     """
-    return PART_TIME_DAY_HOUR * WAGE_PER_HOUR
+    return PART_TIME_DAY_HOUR * WAGE_PER_HOUR 
+
+
+
+def calculate_monthly_wage():
+
+    """
+
+        Description:
+            Calculate monthly wages for the employees, wage per hour is 20, haugh day hour is 4 and monthly working days is 20. 
+
+        Parameter:
+            None
+
+        Return:
+            Multiplication of total monthly working hours and wage per hour.
+
+    """
+    
+    total_daily_hrs = []
+    for _ in range(MONTH_DAYS):
+        attendance = check_attendance()
+        if attendance == 1:
+            total_daily_hrs.append(calculate_daily_wage())
+        elif attendance == 2:
+            total_daily_hrs.append(part_time_employee_daily_wage())
+        else :
+            total_daily_hrs.append(0)
+
+    total_hours =0
+    for ele in range(0, len(total_daily_hrs)):
+        total_hours = total_hours + total_daily_hrs[ele]
+
+    return total_hours * WAGE_PER_HOUR
 
 
 def main():
     print("***Welcome to Employee Wage Computation Program***")
-    attendance = check_attendance()
-
-    match (attendance):
-        case 1:
-            print(f"Given Employee is Full time Employee.... \nThere daily wage : {calculate_daily_wage()}")
-        case 2:
-            print(f"Given Employee is Part time Employee.... \nThere daily wage : {part_time_employee_daily_wage()}")
-        case _ :
-            print(f"Given Employee is Absent.... \nThere daily wage : {0}")
+    print(f"Given Employee monthly wages is : {calculate_monthly_wage()}")
 
 
 if __name__ == "__main__":
