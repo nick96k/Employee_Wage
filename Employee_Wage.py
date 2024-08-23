@@ -97,11 +97,15 @@ class EmployeeWage():
             total_days += 1
 
         return total_days, total_hours, total_wage
+    
+
+def main():
+    print("***Welcome to Employee Wage Computation Program***")
+    total_days, total_hours, total_wage = EmployeeWage.calculate_monthly_wage_for_20days_Max100hrs()
+    print(f"Employee Total Present Days in the Month: {total_days}")
+    print(f"Employee Total Working Hours in the Month: {total_hours}")
+    print(f"Employee Total Wages for the Month: {total_wage}")
 
 
-# Main Program Execution
-print("***Welcome to Employee Wage Computation Program***")
-total_days, total_hours, total_wage = EmployeeWage.calculate_monthly_wage_for_20days_Max100hrs()
-print(f"Employee's Total Present Days in the Month: {total_days}")
-print(f"Employee's Total Working Hours in the Month: {total_hours}")
-print(f"Employee's Total Wages for the Month: {total_wage}")
+if __name__ == "__main__":
+    main()
