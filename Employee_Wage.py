@@ -68,7 +68,7 @@ class EmployeeWage():
 
     
     @classmethod
-    def calculate_monthly_wage(self):
+    def calculate_monthly_wage_for_20days_Max100hrs(self):
         """
 
             Description:
@@ -76,30 +76,32 @@ class EmployeeWage():
             Parameter:
                 None
             Return:
-                total_days : Give Total working days in a month.
-                total_hours : Give Total working hours in a month.
+                total_days : Total working days in a month.
+                total_hours : Total working hours in a month.
+                total_wage : Total wage earned in the month.
 
         """ 
         total_hours = 0
         total_days = 0
+        total_wage =0
 
         while total_hours < self.MAX_HOURS_PER_MONTH and total_days < self.MONTH_DAYS  :
             attendance = self.check_attendance()
             if attendance == 1:
                 total_hours += self.FULL_DAY_HOUR
+                total_wage += self.calculate_daily_wage()
             elif attendance == 2:
                 total_hours += self.PART_TIME_DAY_HOUR
-            else :
-                total_hours += 0
-            total_days +=1
+                total_wage += self.part_time_employee_daily_wage()
+            # If absent (attendance == 0), no hours or wage is added
+            total_days += 1
 
-        return total_days, total_hours
+        return total_days, total_hours, total_wage
 
 
+# Main Program Execution
 print("***Welcome to Employee Wage Computation Program***")
-total_days, total_hours = EmployeeWage.calculate_monthly_wage()
-print(f"Given Employee Total Present Days in Month : {total_days} ")
-print(f"Given Employee Total Working Hours in Month : {total_hours} ")
-print(f"Given Employee Total Wages for one Month  : {total_hours * EmployeeWage.MONTH_DAYS} ")
-
-
+total_days, total_hours, total_wage = EmployeeWage.calculate_monthly_wage_for_20days_Max100hrs()
+print(f"Employee's Total Present Days in the Month: {total_days}")
+print(f"Employee's Total Working Hours in the Month: {total_hours}")
+print(f"Employee's Total Wages for the Month: {total_wage}")
