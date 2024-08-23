@@ -3,7 +3,7 @@
     @Author : Nikhil Patil
     @Date : 22-08-24
     @Last Modified by : Nikhil Patil
-    @Last Modified Date : 22-08-24
+    @Last Modified Date : 23-08-24
     @Title : Employee Wage Program
 
 
@@ -61,7 +61,7 @@ def part_time_employee_daily_wage():
     return PART_TIME_DAY_HOUR * WAGE_PER_HOUR 
 
 
-def calculate_monthly_wage():
+def calculate_monthly_wage_for_20days_Max100hrs():
     """
 
         Description:
@@ -71,30 +71,35 @@ def calculate_monthly_wage():
         Return:
             total_days : Give Total working days in a month.
             total_hours : Give Total working hours in a month.
-
+            total_wage : Give Total wages for a one month
+            
     """ 
     total_hours = 0
     total_days = 0
+    total_wage =0
 
     while total_hours < MAX_HOURS_PER_MONTH and total_days < MONTH_DAYS  :
         attendance = check_attendance()
         if attendance == 1:
             total_hours += FULL_DAY_HOUR
+            total_wage += calculate_daily_wage()
         elif attendance == 2:
             total_hours += PART_TIME_DAY_HOUR
+            total_wage += part_time_employee_daily_wage()
         else :
             total_hours += 0
+            total_wage += 0
         total_days +=1
 
-    return total_days, total_hours
+    return total_days, total_hours, total_wage
 
 
 def main():
     print("***Welcome to Employee Wage Computation Program***")
-    total_days, total_hours = calculate_monthly_wage()
+    total_days, total_hours, total_wages = calculate_monthly_wage_for_20days_Max100hrs()
     print(f"Given Employee Total Present Days in Month : {total_days} ")
     print(f"Given Employee Total Working Hours in Month : {total_hours} ")
-    print(f"Given Employee Total Wages for one Month  : {total_hours * MONTH_DAYS} ")
+    print(f"Given Employee Total Wages for one Month  : {total_wages} ")
 
 
 if __name__ == "__main__":
