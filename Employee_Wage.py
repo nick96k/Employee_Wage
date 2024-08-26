@@ -21,7 +21,7 @@ class EmployeeWage():
 
 
     @classmethod
-    def check_attendance(self):
+    def check_attendance(cls):
         """
 
             Description:
@@ -36,7 +36,7 @@ class EmployeeWage():
 
 
     @classmethod
-    def calculate_daily_wage(self):
+    def calculate_daily_wage(cls):
         """
 
             Description:
@@ -47,11 +47,11 @@ class EmployeeWage():
                 Multiplication of wage per hour and full day hours.
 
         """
-        return self.WAGE_PER_HOUR * self.FULL_DAY_HOUR
+        return cls.WAGE_PER_HOUR * cls.FULL_DAY_HOUR
 
 
     @classmethod
-    def part_time_employee_daily_wage(self):
+    def part_time_employee_daily_wage(cls):
         """
 
             Description:
@@ -64,11 +64,11 @@ class EmployeeWage():
                 Multiplication of part time day hours and wage per hour.
 
         """
-        return self.PART_TIME_DAY_HOUR * self.WAGE_PER_HOUR 
-
+        return cls.PART_TIME_DAY_HOUR * cls.WAGE_PER_HOUR 
+    
     
     @classmethod
-    def calculate_monthly_wage_for_20days_Max100hrs(self):
+    def calculate_monthly_wage_for_20days_Max100hrs(cls):
         """
 
             Description:
@@ -85,14 +85,14 @@ class EmployeeWage():
         total_days = 0
         total_wage =0
 
-        while total_hours < self.MAX_HOURS_PER_MONTH and total_days < self.MONTH_DAYS  :
-            attendance = self.check_attendance()
+        while total_hours < cls.MAX_HOURS_PER_MONTH and total_days < cls.MONTH_DAYS  :
+            attendance = cls.check_attendance()
             if attendance == 1:
-                total_hours += self.FULL_DAY_HOUR
-                total_wage += self.calculate_daily_wage()
+                total_hours += cls.FULL_DAY_HOUR
+                total_wage += cls.calculate_daily_wage()
             elif attendance == 2:
-                total_hours += self.PART_TIME_DAY_HOUR
-                total_wage += self.part_time_employee_daily_wage()
+                total_hours += cls.PART_TIME_DAY_HOUR
+                total_wage += cls.part_time_employee_daily_wage()
             # If absent (attendance == 0), no hours or wage is added
             total_days += 1
 
