@@ -3,7 +3,7 @@
     @Author : Nikhil Patil
     @Date : 22-08-24
     @Last Modified by : Nikhil Patil
-    @Last Modified Date : 23-08-24
+    @Last Modified Date : 26-08-24
     @Title : Employee Wage Program
 
 
@@ -12,16 +12,8 @@ import random
 
 class EmployeeWage():
 
-    #Constants
-    WAGE_PER_HOUR = 20
-    FULL_DAY_HOUR = 8
-    PART_TIME_DAY_HOUR = 4
-    MONTH_DAYS = 20
-    MAX_HOURS_PER_MONTH = 100
-
-
     @classmethod
-    def check_attendance(self):
+    def check_attendance(cls):
         """
 
             Description:
@@ -36,63 +28,67 @@ class EmployeeWage():
 
 
     @classmethod
-    def calculate_daily_wage(self):
+    def calculate_daily_wage(cls, wage_per_hour, full_day_hour):
         """
 
             Description:
                 Calculate Daily wages, wage per hour is 20 and full day hour is 8. 
             Parameter:
-                None
+                wage_per_hour (int): The wage per hour for the employee.
+                full_day_hour (int): The number of hours for a full day of work.
             Return:
                 Multiplication of wage per hour and full day hours.
 
         """
-        return self.WAGE_PER_HOUR * self.FULL_DAY_HOUR
+        return wage_per_hour * full_day_hour
 
 
     @classmethod
-    def part_time_employee_daily_wage(self):
+    def part_time_employee_daily_wage(cls, wage_per_hour, part_time_day_hour):
         """
 
             Description:
                 Calculate Daily wages for part time employee, wage per hour is 20 and haugh day hour is 4. 
-
             Parameter:
-                None
-
+                wage_per_hour (int): The wage per hour for the employee.
+                part_time_day_hour (int): The number of hours for a part-time day of work.
             Return:
                 Multiplication of part time day hours and wage per hour.
 
         """
-        return self.PART_TIME_DAY_HOUR * self.WAGE_PER_HOUR 
+        return wage_per_hour * part_time_day_hour 
 
     
     @classmethod
-    def calculate_monthly_wage_for_20days_Max100hrs(self):
+    def calculate_monthly_wage_for_multiple_companies(cls, wage_per_hour, full_day_hour, part_time_day_hour, max_working_days, max_working_hours):
         """
 
             Description:
-                Calculate monthly wages for the employees, for maximum hours in month is 100 and maximum day is 20.
-            Parameter:
-                None
+                Calculates the total wage, total hours, total days, and daily wages for the month for a specific company.
+            Parameters:
+                wage_per_hour (int): The wage per hour for the employee.
+                full_day_hour (int): The number of hours for a full day of work.
+                part_time_day_hour (int): The number of hours for a part-time day of work.
+                max_working_days (int): The maximum number of working days in the month.
+                max_working_hours (int): The maximum number of working hours in the month.
             Return:
                 total_days : Total working days in a month.
                 total_hours : Total working hours in a month.
-                total_wage : Total wage earned in the month.
+                total_wage : Total wage earned in the month.        
 
         """ 
         total_hours = 0
         total_days = 0
         total_wage =0
 
-        while total_hours < self.MAX_HOURS_PER_MONTH and total_days < self.MONTH_DAYS  :
-            attendance = self.check_attendance()
+        while total_hours < max_working_hours and total_days < max_working_days  :
+            attendance = cls.check_attendance()
             if attendance == 1:
-                total_hours += self.FULL_DAY_HOUR
-                total_wage += self.calculate_daily_wage()
+                total_hours += full_day_hour
+                total_wage += cls.calculate_daily_wage(wage_per_hour, full_day_hour)
             elif attendance == 2:
-                total_hours += self.PART_TIME_DAY_HOUR
-                total_wage += self.part_time_employee_daily_wage()
+                total_hours += part_time_day_hour
+                total_wage += cls.part_time_employee_daily_wage(wage_per_hour, part_time_day_hour)
             # If absent (attendance == 0), no hours or wage is added
             total_days += 1
 
@@ -100,11 +96,29 @@ class EmployeeWage():
     
 
 def main():
-    print("***Welcome to Employee Wage Computation Program***")
-    total_days, total_hours, total_wage = EmployeeWage.calculate_monthly_wage_for_20days_Max100hrs()
-    print(f"Employee Total Present Days in the Month: {total_days}")
-    print(f"Employee Total Working Hours in the Month: {total_hours}")
-    print(f"Employee Total Wages for the Month: {total_wage}")
+    print("\n*** Welcome to Employee Wage Computation Program ***")
+
+    multiple_companies = {
+        "Infostrech": {"wage_per_hour": 30, "full_day_hour": 6, "part_time_day_hour": 3, "max_working_days": 18, "max_working_hours": 90},
+        "Wipro": {"wage_per_hour": 25, "full_day_hour": 8, "part_time_day_hour": 4, "max_working_days": 22, "max_working_hours": 120},
+        "Tech M": {"wage_per_hour": 20, "full_day_hour": 9, "part_time_day_hour": 5, "max_working_days": 24, "max_working_hours": 110},
+        "TCS": {"wage_per_hour": 20, "full_day_hour": 8, "part_time_day_hour": 5, "max_working_days": 24, "max_working_hours": 105},
+        "Accenture": {"wage_per_hour": 25, "full_day_hour": 9, "part_time_day_hour": 5, "max_working_days": 22, "max_working_hours": 100},
+    }
+
+    for company_name, values in multiple_companies.items():
+        print(f"\n\t** Monthly Wages for {company_name} **")
+        total_days, total_hours, total_wage = EmployeeWage.calculate_monthly_wage_for_multiple_companies(
+            values["wage_per_hour"],
+            values["full_day_hour"],
+            values["part_time_day_hour"],
+            values["max_working_days"],
+            values["max_working_hours"]
+        )
+
+        print(f"Employee Total Present Days in the Month: {total_days}")
+        print(f"Employee Total Working Hours in the Month: {total_hours}")
+        print(f"Employee Total Wages for the Month: {total_wage}")
 
 
 if __name__ == "__main__":
