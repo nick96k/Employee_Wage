@@ -3,7 +3,7 @@
     @Author : Nikhil Patil
     @Date : 22-08-24
     @Last Modified by : Nikhil Patil
-    @Last Modified Date : 26-08-24
+    @Last Modified Date : 27-08-24
     @Title : Employee Wage Program
 
 
@@ -126,29 +126,39 @@ class EmployeeWage:
 
 def main():
     print("\n*** Welcome to Employee Wage Computation Program ***")
-    
+
     employee_wage = EmployeeWage()
 
-    multiple_companies = {
-        "Infostrech": {"wage_per_hour": 30, "full_day_hour": 6, "part_time_day_hour": 3, "max_working_days": 18, "max_working_hours": 90},
-        "Wipro": {"wage_per_hour": 25, "full_day_hour": 8, "part_time_day_hour": 4, "max_working_days": 22, "max_working_hours": 120},
-        "Tech M": {"wage_per_hour": 20, "full_day_hour": 9, "part_time_day_hour": 5, "max_working_days": 24, "max_working_hours": 110},
-        "TCS": {"wage_per_hour": 20, "full_day_hour": 8, "part_time_day_hour": 5, "max_working_days": 24, "max_working_hours": 105},
-        "Accenture": {"wage_per_hour": 25, "full_day_hour": 9, "part_time_day_hour": 5, "max_working_days": 22, "max_working_hours": 100},
-    }
+    num_companies = int(input("Enter the number of companies: "))
 
-    for company_name, values in multiple_companies.items():
-        employee_wage.calculate_monthly_wage(
-            company_name,
-            values["wage_per_hour"],
-            values["full_day_hour"],
-            values["part_time_day_hour"],
-            values["max_working_days"],
-            values["max_working_hours"]
-        )
+    multiple_companies = {}
+    for i in range(num_companies):
+        company_name = input(f"Enter company name {i+1}: ")
+        wage_per_hour = int(input(f"Enter wage per hour for {company_name}: "))
+        full_day_hour = int(input(f"Enter full day hours for {company_name}: "))
+        part_time_day_hour = int(input(f"Enter part-time day hours for {company_name}: "))
+        max_working_days = int(input(f"Enter max working days for {company_name}: "))
+        max_working_hours = int(input(f"Enter max working hours for {company_name}: "))
+
+        multiple_companies[company_name] = {
+            "wage_per_hour": wage_per_hour,
+            "full_day_hour": full_day_hour,
+            "part_time_day_hour": part_time_day_hour,
+            "max_working_days": max_working_days,
+            "max_working_hours": max_working_hours
+        }
+
+        for company_name, values in multiple_companies.items():
+            employee_wage.calculate_monthly_wage(
+                company_name,
+                values["wage_per_hour"],
+                values["full_day_hour"],
+                values["part_time_day_hour"],
+                values["max_working_days"],
+                values["max_working_hours"]
+         )
 
     employee_wage.display_company_wages()
-
 
 if __name__ == "__main__":
     main()
